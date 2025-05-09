@@ -7,7 +7,7 @@ auth_bp = Blueprint("auth", __name__)
 
 INSTITUTION_DOMAIN = "@aluno.uniruy.edu.br"
 
-@auth_bp.route("/login", methods=["POST"])
+@auth_bp.route("/auth/login", methods=["POST"])
 def login():
     data = request.json
     email = data.get("email")
@@ -16,7 +16,7 @@ def login():
     if not email or not password:
         return jsonify({"error": "Email e senha são obrigatórios"}), 400
 
-    if not email.endswith("uniruy.edu.br") | email.endswith("professor.uniruy.edu.br"):
+    if not email.endswith("uniruy.edu.br"):
         return jsonify({"error": "Email fora do domínio institucional"}), 403
 
     user = users_collection.find_one({"email": email})
@@ -54,7 +54,7 @@ def login():
         return jsonify({
             "nome": nome,
             "email": email,
-            "role": "student",
+            "role": role,
             "jwtToken": token,
             "acessAt": new_user["acessAt"]
         }), 201
