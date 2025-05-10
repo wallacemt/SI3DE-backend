@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
 from datetime import datetime
-from database import users_collection
-from auth import hash_password, verify_password, create_jwt
+from db.database import users_collection
+from config.auth import hash_password, verify_password
+from utils.jwtUtils import create_jwt_token
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -30,12 +31,13 @@ def login():
             {"$set": {"acessAt": datetime.utcnow()}}
         )
 
-        token = create_jwt(user["_id"], user["email"])
+        token = create_jwt_token(user["_id"], user["email"], user["role"])
 
         return jsonify({
             "nome": user["nome"],
             "email": user["email"],
             "role": user["role"],
+            "isFullProfile":user[ "isFullProfile"],
             "jwtToken": token,
             "acessAt": datetime.utcnow()
         }), 200
@@ -47,14 +49,19 @@ def login():
             "email": email,
             "password": hash_password(password),
             "role": role, 
-            "acessAt": datetime.utcnow()
+            "acessAt": datetime.utcnow(),
+            "isFullProfile": False
         }
+
         result = users_collection.insert_one(new_user)
-        token = create_jwt(result.inserted_id, email)
+        token = create_jwt_token(result.inserted_id, email, role)
         return jsonify({
             "nome": nome,
             "email": email,
             "role": role,
             "jwtToken": token,
-            "acessAt": new_user["acessAt"]
+            "acessAt": new_user["acessAt"],
+            "isFullProfile": new_user.get("isFullProfile", False)
         }), 201
+
+
