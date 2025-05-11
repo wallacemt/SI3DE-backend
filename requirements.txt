@@ -3,3 +3,6 @@ pymongo
 dnspython
 flask-cors
 dotenv
+argon2
+jwt
+pydantic
