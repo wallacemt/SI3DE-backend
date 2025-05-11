@@ -15,8 +15,12 @@ app.register_blueprint(user_bp)
 
 
 @app.route("/docs")
-def swagger_spec():
-    return send_from_directory(".", "swagger.json")
+def swagger_ui():
+    return send_from_directory(app.static_folder, "index.html")
+
+@app.route("/swagger.json")
+def swagger_json():
+    return send_from_directory(app.static_folder, "swagger.json")
 
 
 if __name__ == "__main__":
