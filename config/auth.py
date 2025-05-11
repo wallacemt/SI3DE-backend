@@ -1,6 +1,5 @@
 from argon2 import PasswordHasher
 from argon2.exceptions import VerifyMismatchError
-import jwt
 ph = PasswordHasher()
 def hash_password(password: str) -> str:
     return ph.hash(password)
