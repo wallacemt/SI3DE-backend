@@ -1,0 +1,126 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SI3DE API",
+    "version": "1.0",
+    "description": "API para autenticação e gerenciamento de perfis no sistema SI3DE"
+  },
+  "host": "si3de-backend.onrender.com",
+  "basePath": "/",
+  "schemes": ["https"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/auth": {
+      "get": {
+        "summary": "Rota de boas-vindas",
+        "description": "Mensagem simples de boas-vindas para teste de conexão.",
+        "responses": {
+          "200": {
+            "description": "Mensagem de boas-vindas"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Login ou criação de usuário",
+        "description": "Autentica ou cria um novo usuário institucional (domínio @uniruy.edu.br).",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "credenciais",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": ["email", "password"],
+              "properties": {
+                "email": { "type": "string", "example": "aluno@aluno.uniruy.edu.br" },
+                "password": { "type": "string", "example": "123456" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login bem-sucedido"
+          },
+          "201": {
+            "description": "Usuário criado"
+          },
+          "400": {
+            "description": "Campos obrigatórios faltando"
+          },
+          "401": {
+            "description": "Senha incorreta"
+          },
+          "403": {
+            "description": "Email fora do domínio permitido"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Dados do usuário logado",
+        "description": "Retorna as informações do usuário logado (incluindo perfil, se existir).",
+        "security": [{ "Bearer": [] }],
+        "responses": {
+          "200": {
+            "description": "Usuário encontrado com sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado"
+          }
+        }
+      }
+    },
+    "/user/profile": {
+      "post": {
+        "summary": "Criar ou atualizar perfil",
+        "description": "Cria ou atualiza o perfil do usuário logado (apenas alunos).",
+        "security": [{ "Bearer": [] }],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "perfil",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": { "type": "string" },
+                "curso": { "type": "string" },
+                "materiasConcluidas": { "type": "integer" },
+                "cra": { "type": "number" },
+                "interesses": { "type": "array", "items": { "type": "string" } },
+                "habilidades": { "type": "array", "items": { "type": "string" } },
+                "linkedin": { "type": "string" },
+                "github": { "type": "string" },
+                "portfolio": { "type": "string" }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil atualizado com sucesso"
+          },
+          "422": {
+            "description": "Erro de validação"
+          },
+          "500": {
+            "description": "Erro interno"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Use o formato: Bearer {seu_token_jwt}"
+    }
+  }
+}

@@ -8,3 +8,5 @@ PyJWT
 fastapi
 pydantic
 pydantic[email]
+flasgger
+flask-restx
