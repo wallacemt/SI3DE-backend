@@ -2,7 +2,7 @@ flask
 pymongo
 dnspython
 flask-cors
+argon2-cffi
 dotenv
-argon2
 jwt
 pydantic
