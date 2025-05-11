@@ -4,7 +4,7 @@ dnspython
 flask-cors
 argon2-cffi
 dotenv
-jwt
+PyJWT
 fastapi
 pydantic
 pydantic[email]
