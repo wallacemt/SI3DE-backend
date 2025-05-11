@@ -8,6 +8,11 @@ auth_bp = Blueprint("auth", __name__)
 
 INSTITUTION_DOMAIN = "@aluno.uniruy.edu.br"
 
+
+@auth_bp.route("/auth", methods=["GET"])
+def welcome():
+    return jsonify({"message": "Essa e a rota de autenticação!"}), 200
+
 @auth_bp.route("/auth/login", methods=["POST"])
 def login():
     data = request.json

@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: flask-api
+    env: python
+    region: oregon  
+    buildCommand: ""
+    startCommand: python app.py
