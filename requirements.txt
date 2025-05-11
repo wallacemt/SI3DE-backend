@@ -6,3 +6,4 @@ argon2-cffi
 dotenv
 jwt
 pydantic
+pydantic[email]
