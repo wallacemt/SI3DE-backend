@@ -2,3 +2,4 @@ flask
 pymongo
 dnspython
 flask-cors
+dotenv
