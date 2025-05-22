@@ -1,6 +1,6 @@
 vagasData = [
     {
-        "id": "d1e54efc-b8d6-49b3-a1a1-1a3c9189f001",
+        "id": "1",
         "title": "Estágio em Desenvolvimento Front-End",
         "createdAt": "2025-04-29T09:00:00Z",
         "publicationPlataform": "LinkedIn",
@@ -14,7 +14,7 @@ vagasData = [
         "bolsa": 1200.0
     },
     {
-        "id": "b3f6e7cd-5ec9-4e90-8b91-18dc34b7f002",
+        "id": "2",
         "title": "Estágio em Ciência de Dados",
         "createdAt": "2025-04-28T15:00:00Z",
         "publicationPlataform": "Gupy",
@@ -28,7 +28,7 @@ vagasData = [
         "bolsa": 1400.0
     },
     {
-        "id": "7a44dcce-6b98-4bda-879e-0e4b85a6f003",
+        "id": "3",
         "title": "Estágio em UX/UI Design",
         "createdAt": "2025-04-26T10:00:00Z",
         "publicationPlataform": "Kenoby",
@@ -42,7 +42,7 @@ vagasData = [
         "bolsa": 1100.0
     },
     {
-        "id": "f531f7e5-b2de-4704-b6f1-c3553aa5f004",
+        "id": "4",
         "title": "Trainee em Engenharia de Software",
         "createdAt": "2025-04-25T14:00:00Z",
         "publicationPlataform": "LinkedIn",
@@ -56,7 +56,7 @@ vagasData = [
         "bolsa": 2500.0
     },
     {
-        "id": "c7b4e0dd-805f-466b-a81a-bf6d53c8f005",
+        "id": "5",
         "title": "Estágio Back-End Java",
         "createdAt": "2025-04-24T11:00:00Z",
         "publicationPlataform": "Gupy",
@@ -70,7 +70,7 @@ vagasData = [
         "bolsa": 1300.0
     },
     {
-        "id": "42e2fd7e-11b2-45ce-b6e2-1c8fe7de0006",
+        "id": "6",
         "title": "Estágio DevOps",
         "createdAt": "2025-04-23T17:00:00Z",
         "publicationPlataform": "99jobs",
@@ -84,7 +84,7 @@ vagasData = [
         "bolsa": 1500.0
     },
     {
-        "id": "9e1b2b1d-748a-4fbd-a7d6-ffbac2c2f007",
+        "id": "7",
         "title": "Estágio QA / Testes de Software",
         "createdAt": "2025-04-22T13:00:00Z",
         "publicationPlataform": "LinkedIn",
@@ -98,7 +98,7 @@ vagasData = [
         "bolsa": 1250.0
     },
     {
-        "id": "a8c39b7e-54b2-4381-9c6d-1fd4a5dd0008",
+        "id": "8",
         "title": "Estágio em Segurança da Informação",
         "createdAt": "2025-04-21T16:00:00Z",
         "publicationPlataform": "Gupy",
@@ -112,7 +112,7 @@ vagasData = [
         "bolsa": 1350.0
     },
     {
-        "id": "7bc87ee4-67de-4bc6-9702-1e9e6fd10009",
+        "id": "9",
         "title": "Estágio em Banco de Dados",
         "createdAt": "2025-04-20T09:00:00Z",
         "publicationPlataform": "Kenoby",
@@ -126,7 +126,7 @@ vagasData = [
         "bolsa": 1200.0
     },
     {
-        "id": "f139e4cb-d23a-403f-bdc9-91e867b4f010",
+        "id": "10",
         "title": "Estágio Full Stack",
         "createdAt": "2025-04-19T12:00:00Z",
         "publicationPlataform": "LinkedIn",

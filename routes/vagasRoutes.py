@@ -52,7 +52,6 @@ def get_vagas():
     vagas_cursor = vagas_collection.find(query).skip(skip).limit(limit).sort("createdAt", -1)
     total = vagas_collection.count_documents(query)
 
-    # Função de serialização
     def serialize_vaga(vaga):
         vaga["_id"] = str(vaga["_id"])
         return vaga

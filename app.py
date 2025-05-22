@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from routes.authRoutes import auth_bp
 from routes.vagasRoutes import vagas_bp
+from routes.insightsRoutes import insights_bp
 from routes.userRoutes import user_bp
 from config.config import FRONTEND_URL
 from flask import send_from_directory
@@ -26,6 +27,7 @@ def swagger_json():
 app.register_blueprint(auth_bp)
 app.register_blueprint(user_bp)
 app.register_blueprint(vagas_bp)
+app.register_blueprint(insights_bp)
 if __name__ == "__main__":
    import os
 
