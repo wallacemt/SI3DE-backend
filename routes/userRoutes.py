@@ -22,10 +22,11 @@ def get_me():
         user["profile"] = profile
     else:
         user["profile"] = None
-
+    adminName = user.get("name")
     return jsonify({
         "id": str(user["_id"]),
         "nome": user["nome"],
+        "adminName": adminName if adminName else None,
         "email": user["email"],
         "role": user["role"],
         "acessAt": user["acessAt"],

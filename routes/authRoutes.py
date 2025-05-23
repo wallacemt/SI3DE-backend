@@ -19,7 +19,7 @@ def login():
     if not email or not password:
         return jsonify({"error": "Email e senha são obrigatórios"}), 400
 
-    if not email.endswith("uniruy.edu.br"):
+    if not (email.endswith("uniruy.edu.br") or email.endswith("area1.edu.br")):
         return jsonify({"error": "Email fora do domínio institucional"}), 403
 
     user = users_collection.find_one({"email": email})
@@ -35,14 +35,17 @@ def login():
 
         token = create_jwt_token(user["_id"], user["email"], user["role"])
 
+        adminName = user.get("name")
         return jsonify({
             "nome": user["nome"],
+            "adminName": adminName if adminName else None,
             "email": user["email"],
             "role": user["role"],
             "isFullProfile":user[ "isFullProfile"],
             "jwtToken": token,
             "acessAt": datetime.utcnow()
         }), 200
+    
     elif "alunos.uniruy.edu.br" in email:
         nome = email.split("@")[0] 
         role = email.endswith("professor.uniruy.edu.br") and "teacher" or "student"
