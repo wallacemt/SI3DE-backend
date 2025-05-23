@@ -6,9 +6,6 @@ from utils.jwtUtils import create_jwt_token
 
 auth_bp = Blueprint("auth", __name__)
 
-INSTITUTION_DOMAIN = "@aluno.uniruy.edu.br"
-
-
 @auth_bp.route("/auth", methods=["GET"])
 def welcome():
     return jsonify({"message": "Essa e a rota de autenticação!"}), 200
@@ -46,7 +43,7 @@ def login():
             "jwtToken": token,
             "acessAt": datetime.utcnow()
         }), 200
-    else:
+    elif "alunos.uniruy.edu.br" in email:
         nome = email.split("@")[0] 
         role = email.endswith("professor.uniruy.edu.br") and "teacher" or "student"
         new_user = {
@@ -68,5 +65,6 @@ def login():
             "acessAt": new_user["acessAt"],
             "isFullProfile": new_user.get("isFullProfile", False)
         }), 201
-
+    else:
+        return jsonify({"error": "Usuário não encontrado"}), 404
 
