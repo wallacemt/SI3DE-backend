@@ -34,7 +34,7 @@ e recuperação de dados.
 
 <div align='center' id="tecnologias-utilizadas">
   <img align='center' height='49' width='49' title='Python' alt='Python' src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg'/> &nbsp;
-  <img align='center' height='49' width='49' title='Flask' alt='Flask' src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg'/> &nbsp;
+  <img align='center' height='49' width='49' title='Flask' alt='Flask' src='https://play-lh.googleusercontent.com/ekpyJiZppMBBxCR5hva9Zz1pr3MYlFP-vWTYR3eIU7HOMAmg3jCJengHJ1GFgFMyyYc'/> &nbsp;
   <img align='center' height='49' width='49' title='MongoDB' alt='MongoDB' src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg'/> &nbsp;
   <img align='center' height='49' width='49' title='JWT' alt='JWT' src='https://cdn.worldvectorlogo.com/logos/jwt-3.svg' /> &nbsp;  
   <img align='center' height='50' width='50' title='Cors' alt='cors' src='https://github.com/bush1D3v/navarro_blog_api/assets/133554156/5dcd815b-e815-453b-9f3f-71e7dbcdf71d' /> 
