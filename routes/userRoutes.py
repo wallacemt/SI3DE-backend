@@ -19,6 +19,7 @@ def get_me():
     user["_id"] = str(user["_id"])
     if profile:
         profile["_id"] = str(profile["_id"])
+        profile["curso"] = profile["curso"].replace("_", " ").capitalize()
         user["profile"] = profile
     else:
         user["profile"] = None
