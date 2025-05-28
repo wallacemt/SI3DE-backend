@@ -1,11 +1,11 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, g
 from middlewares.authRequired import auth_required
 from db.database import vagas_collection
-from fastapi.encoders import jsonable_encoder
-from pymongo import ASCENDING, DESCENDING
-import re
+
+from db.database import users_collection, profiles_collection
 
 vagas_bp = Blueprint("vagas", __name__)
+
 
 @vagas_bp.route('/vagas', methods=['GET'])
 @auth_required(["student", "teacher"])
@@ -16,6 +16,7 @@ def get_vagas():
     except ValueError:
         return jsonify({"error": "Parâmetros 'page' e 'limit' devem ser inteiros."}), 400
 
+    profile = profiles_collection.find_one({"user_id": g.current_user_id})
     skip = (page - 1) * limit
 
     search = request.args.get('search', "").strip()
@@ -23,10 +24,24 @@ def get_vagas():
     nivel = request.args.get('nível')
     empresa = request.args.get('empresa')
     plataforma = request.args.get('plataforma')
-    turno = request.args.get('turno')
+    turno_param = request.args.get('turno')  # valor vindo da URL, se tiver
 
     query = {}
 
+    # 🔁 Filtro de turno automático baseado no turno do aluno (apenas se não tiver filtro manual)
+    if g.role == "student":
+        turno_aluno = profile.get("turno")
+        if not turno_param and turno_aluno:
+            turnos_opostos = {
+                "matutino": ["noturno", "vespertino", "integral"],
+                "noturno": ["matutino", "vespertino", "integral"],
+                "vespertino": ["matutino", "noturno", "integral"],
+            }
+            turno_oposto = turnos_opostos.get(turno_aluno.lower())
+            if turno_oposto:
+                query["turno"] = {"$in": turno_oposto}
+
+    # 🔍 Filtro de busca textual
     if search:
         import re
         regex = re.compile(re.escape(search), re.IGNORECASE)
@@ -38,6 +53,7 @@ def get_vagas():
             {"turno": regex}
         ]
 
+    # 📌 Outros filtros opcionais
     if modalidade:
         query["modalidade"] = modalidade.lower()
     if nivel:
@@ -46,8 +62,9 @@ def get_vagas():
         query["empresa"] = empresa
     if plataforma:
         query["publicationPlataform"] = plataforma
-    if turno:
-        query["turno"] = turno.lower()
+    if turno_param:
+        if (turno_param.lower() != turno_aluno.lower()):
+            query["turno"] = turno_param.lower()
 
     vagas_cursor = vagas_collection.find(query).skip(skip).limit(limit).sort("createdAt", -1)
     total = vagas_collection.count_documents(query)

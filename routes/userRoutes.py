@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify, g
 from middlewares.authRequired import auth_required
 from db.database import users_collection, profiles_collection
+from services.ia_insights_service import calcular_progresso_curso_gemini
 from bson import ObjectId
 from db.models import ProfileUpdate
 from fastapi.encoders import jsonable_encoder
@@ -10,7 +11,7 @@ user_bp = Blueprint("user", __name__)
 @auth_required(["student", "teacher"])
 def get_me():
     user = users_collection.find_one({"_id": ObjectId(g.current_user_id)})
-    
+
     if not user:
         return jsonify({"error": "Usuário não encontrado"}), 404
 
@@ -20,6 +21,7 @@ def get_me():
     if profile:
         profile["_id"] = str(profile["_id"])
         profile["curso"] = profile["curso"].replace("_", " ").capitalize()
+        profile["porcentagem_conclusao"] = calcular_progresso_curso_gemini(profile["curso"], profile["numeroMateriasConcluidas"])
         user["profile"] = profile
     else:
         user["profile"] = None
@@ -40,7 +42,7 @@ def get_me():
 @auth_required(["student"])
 def create_or_update_profile():
     try:
-        profile_data = ProfileUpdate(**request.json)  
+        profile_data = ProfileUpdate(**request.json)
         clean_data = jsonable_encoder(profile_data)
 
         profiles_collection.update_one(
@@ -48,7 +50,7 @@ def create_or_update_profile():
             {"$set": {**clean_data, "user_id": g.current_user_id}},
             upsert=True
         )
-        
+
         if "nome" in request.json:
             nome = request.json["nome"]
             res = users_collection.find_one_and_update(

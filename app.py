@@ -13,7 +13,7 @@ app = Flask(__name__, static_folder="static/swagger-ui")
 CORS(app, resources={r"/*": {"origins": ["http://192.168.248.202:5173", FRONTEND_URL, "http://localhost:5173"]}}, supports_credentials=True)
 
 
-@app.route("/docs")
+@app.route("/")
 def swagger_ui():
     return send_from_directory(app.static_folder, "index.html")
 
