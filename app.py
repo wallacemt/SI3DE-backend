@@ -5,6 +5,7 @@ from routes.vagasRoutes import vagas_bp
 from routes.insightsRoutes import insights_bp
 from routes.facultyRoutes import faculty_bp
 from routes.userRoutes import user_bp
+from routes.feedbackRoutes import feedback_bp
 from config.config import FRONTEND_URL
 from flask import send_from_directory
 
@@ -30,6 +31,7 @@ app.register_blueprint(user_bp)
 app.register_blueprint(vagas_bp)
 app.register_blueprint(insights_bp)
 app.register_blueprint(faculty_bp)
+app.register_blueprint(feedback_bp)
 if __name__ == "__main__":
    import os
 

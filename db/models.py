@@ -11,6 +11,11 @@ class UserSchema(BaseModel):
     acessAt: datetime
 
 
+class FeedbackBase(BaseModel):
+    user_id: str
+    typeFeedback:str
+    message: str
+
 class ProfileBase(BaseModel):
     curso: str
     numeroMateriasConcluidas: int = Field(..., ge=0)

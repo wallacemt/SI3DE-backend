@@ -19,7 +19,6 @@ def auth_required(allowed_roles=None):
                 g.email = payload.get("email")
                 g.role = payload.get("role")
                 if allowed_roles:
-
                     if g.role not in allowed_roles:
                         return jsonify({"error": "Acesso não autorizado"}), 403
             except jwt.ExpiredSignatureError:

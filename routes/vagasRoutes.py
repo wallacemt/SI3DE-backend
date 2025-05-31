@@ -24,11 +24,9 @@ def get_vagas():
     nivel = request.args.get('nível')
     empresa = request.args.get('empresa')
     plataforma = request.args.get('plataforma')
-    turno_param = request.args.get('turno')  # valor vindo da URL, se tiver
+    turno_param = request.args.get('turno')
 
     query = {}
-
-    # 🔁 Filtro de turno automático baseado no turno do aluno (apenas se não tiver filtro manual)
     if g.role == "student":
         turno_aluno = profile.get("turno")
         if not turno_param and turno_aluno:
@@ -40,8 +38,6 @@ def get_vagas():
             turno_oposto = turnos_opostos.get(turno_aluno.lower())
             if turno_oposto:
                 query["turno"] = {"$in": turno_oposto}
-
-    # 🔍 Filtro de busca textual
     if search:
         import re
         regex = re.compile(re.escape(search), re.IGNORECASE)
@@ -53,7 +49,6 @@ def get_vagas():
             {"turno": regex}
         ]
 
-    # 📌 Outros filtros opcionais
     if modalidade:
         query["modalidade"] = modalidade.lower()
     if nivel:
